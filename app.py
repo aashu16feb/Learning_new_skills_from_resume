@@ -69,7 +69,7 @@ def extract_information_from_user(text,respath):
     print("Welcome",txt)
     return retirve_info_from_db(txt)
 
-def extract_information_from_usercourse(text,respath):
+def extract_information_from_usercourse(text,interests,respath):
     key=[]
     value=[]
     nlp = spacy.load("./data/ner_model")
@@ -100,7 +100,7 @@ def extract_information_from_usercourse(text,respath):
     #     #print(i)
     #     txt.append(i)
     # print("Hello",txt)
-    txt=list(set(list(test_skills)+list(data['skills'])))
+    txt=list(set(list(test_skills)+list(data['skills'])+list(interests)))
     print("Welcome",txt)
     return retirve_info_from_dbcourse(txt)
 
@@ -194,15 +194,17 @@ def my_form_post1():
     myskills=mydb1.find({'userId': bson.ObjectId(oid=str(userid))},{'_id':0})
     resumepath =""
     ski=""
+    interests=[]
     for data in myskills:
         ski=" , ".join(data['skills'])
         resumepath=data['resume']
+        interests=interests.extend(data['interests'])
     #ski=ski.title();   
     
     ski="SKILLS "+ski
     resumepath=resumepath.replace("/host/", "C:/Users/Ashutosh/Desktop/crowdfunding-react/job-portal/backend/public/")
     print(resumepath)
-    return(extract_information_from_usercourse(ski,resumepath))    
+    return(extract_information_from_usercourse(ski,interests,resumepath))    
 
 if __name__ == "__main__":
     
