@@ -16,8 +16,8 @@ client = MongoClient(connection_string)
 def do():
     ex = []
     wrong = []
-    db = client['jobs']
-    mydb = db['narkuri']
+    db = client['jobPortal']
+    mydb = db['jobs']
     t = 0
     for search in skills:
         try:
@@ -50,6 +50,8 @@ def do():
                     print(ti)
                 tod = datetime.datetime.now()
                 d = datetime.timedelta(days = ti)
+                d1 = datetime.timedelta(days = 30)
+                dead=tod+d1
                 a = tod - d
                 print(a)
                 
@@ -66,6 +68,7 @@ def do():
                     'jobType':"Undefined",
                     'duration':0,
                     'Recruiter':name[i].text,
+                    'deadline':dead
                 }
 
                 data.append(x)
