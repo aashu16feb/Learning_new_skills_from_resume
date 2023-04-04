@@ -75,7 +75,7 @@ def extract_information_from_usercourse(text,interests,respath):
     nlp = spacy.load("./data/ner_model")
 
     doc = nlp(text)
-    print(doc.ents)
+    #print(doc.ents)
     test_skills=[]
     for ent in doc.ents:
                 test_skills.append(ent.text.title())
@@ -100,7 +100,8 @@ def extract_information_from_usercourse(text,interests,respath):
     #     #print(i)
     #     txt.append(i)
     # print("Hello",txt)
-    txt=list(set(list(test_skills)+list(data['skills'])+list(interests)))
+    print("hdj",interests)
+    txt=list(set(list(test_skills)+list(data['skills'])+interests))
     print("Welcome",txt)
     return retirve_info_from_dbcourse(txt)
 
@@ -198,7 +199,8 @@ def my_form_post1():
     for data in myskills:
         ski=" , ".join(data['skills'])
         resumepath=data['resume']
-        interests=interests.extend(data['interests'])
+        interests=data['interests']
+        print(data['interests'])
     #ski=ski.title();   
     
     ski="SKILLS "+ski
